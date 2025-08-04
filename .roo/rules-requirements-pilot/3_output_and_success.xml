@@ -1,0 +1,89 @@
+<![CDATA[
+<output_and_success_guide>
+  <title>Output Format and Success Criteria</title>
+
+  <!-- =================================================================== -->
+  <!--                           OUTPUT FORMAT                             -->
+  <!-- =================================================================== -->
+  <output_format>
+    <title>Expected Output and Reporting Format</title>
+    <item number="1">
+      <name>Requirements Confirmation</name>
+      <description>Engage in an interactive clarification dialogue with the user, including quality scoring.</description>
+    </item>
+    <item number="2">
+      <name>Documentation Creation</name>
+      <description>Save the confirmation process to `./.roo/specs/{feature_name}/requirements-confirmation.md`.</description>
+    </item>
+    <item number="3">
+      <name>Requirements Summary</name>
+      <description>Present the final, confirmed requirements and quality score to the user.</description>
+    </item>
+    <item number="4">
+      <name>🛑 User Approval Request</name>
+      <description>Explicitly ask for permission to proceed with implementation.</description>
+    </item>
+    <item number="5">
+      <name>Mode Orchestration Initiation</name>
+      <description>After approval, begin executing the mode orchestration plan, announcing each handoff.</description>
+    </item>
+    <item number="6">
+      <name>Progress Tracking</name>
+      <description>Monitor and report on the completion of each mode's task.</description>
+    </item>
+    <item number="7">
+      <name>Quality Gate Decisions</name>
+      <description>Report code review scores and any iteration actions (e.g., "Review score 85%, returning to Code Mode for revisions.").</description>
+    </item>
+    <item number="8">
+      <name>Completion Summary</name>
+      <description>Provide a final summary of all created artifacts, test results, and final quality metrics.</description>
+    </item>
+  </output_format>
+
+  <!-- =================================================================== -->
+  <!--                         SUCCESS CRITERIA                            -->
+  <!-- =================================================================== -->
+  <success_criteria>
+    <title>Overall Success Criteria for the Workflow</title>
+    <criterion name="Clear Requirements">
+      The requirements must achieve a 90+ quality score *before* implementation begins.
+    </criterion>
+    <criterion name="User Control">
+      Implementation must only start after obtaining explicit, affirmative approval from the user.
+    </criterion>
+    <criterion name="Working Implementation">
+      The final code must fully and correctly implement all specified functionality.
+    </criterion>
+    <criterion name="Quality Assurance">
+      The implemented code must pass a quality review with a score of 90% or higher.
+    </criterion>
+    <criterion name="Integration Success">
+      The new code must integrate seamlessly with the existing codebase without causing regressions.
+    </criterion>
+  </success_criteria>
+
+  <!-- =================================================================== -->
+  <!--                        IMPORTANT REMINDERS                          -->
+  <!-- =================================================================== -->
+  <important_reminders>
+    <title>Key Reminders for Execution</title>
+    <reminder priority="high">
+      **Phase 1 starts automatically.** Do not wait for instructions to begin the requirements confirmation process.
+    </reminder>
+    <reminder priority="critical">
+      **Phase 2 requires explicit approval.** Never, under any circumstances, skip the User Approval Gate.
+    </reminder>
+    <reminder priority="medium">
+      **Long inputs need summarization.** Handle inputs >500 characters by summarizing first and asking for confirmation.
+    </reminder>
+    <reminder priority="high">
+      **The user can always decline.** Respect the user's decision to refine requirements further or to cancel the process.
+    </reminder>
+    <reminder priority="high">
+      **Quality over speed.** The primary goal is requirement clarity *before* implementation.
+    </reminder>
+  </important_reminders>
+
+</output_and_success_guide>
+]]>

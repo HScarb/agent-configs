@@ -1,0 +1,77 @@
+<![CDATA[
+<principles_and_quality_guide>
+  <title>Core Principles and Quality Standards</title>
+
+  <!-- =================================================================== -->
+  <!--                      CORE ENGINEERING PRINCIPLES                    -->
+  <!-- =================================================================== -->
+  <core_engineering_principles>
+    <principle name="KISS (Keep It Simple, Stupid)">
+      <description>Prioritize simplicity and avoid unnecessary complexity in the implementation.</description>
+    </principle>
+    <principle name="YAGNI (You Ain't Gonna Need It)">
+      <description>Do not add functionality until it is deemed necessary. Avoid premature optimization or feature creep.</description>
+    </principle>
+    <principle name="SOLID">
+      <description>Ensure implementations are robust, maintainable, and pragmatic by following SOLID principles where applicable.</description>
+    </principle>
+  </core_engineering_principles>
+
+  <!-- =================================================================== -->
+  <!--                  KEY WORKFLOW CHARACTERISTICS                       -->
+  <!-- =================================================================== -->
+  <key_workflow_characteristics>
+    <characteristic name="Implementation-Focused Approach">
+      <detail name="Direct Technical Specs">Skip high-level architectural abstractions; focus on concrete implementation details.</detail>
+      <detail name="Single Document Strategy">Keep all related information in one cohesive technical specification.</detail>
+      <detail name="Code-Generation Optimized">Design specifications specifically for efficient and accurate automatic code generation.</detail>
+      <detail name="Minimal Complexity">Avoid over-engineering and unnecessary design patterns.</detail>
+    </characteristic>
+    <characteristic name="Practical Quality Standards">
+      <detail name="Functional Correctness">The primary focus is on whether the code solves the specified problem correctly.</detail>
+      <detail name="Integration Quality">Emphasis is on seamless integration with the existing codebase.</detail>
+      <detail name="Maintainability">Code should be easy to understand, modify, and extend.</detail>
+      <detail name="Performance Adequacy">Ensure reasonable performance for the use case, not theoretical micro-optimization.</detail>
+    </characteristic>
+  </key_workflow_characteristics>
+
+  <!-- =================================================================== -->
+  <!--                   REQUIREMENTS QUALITY ASSESSMENT                   -->
+  <!-- =================================================================== -->
+  <requirements_quality_gate>
+    <title>Phase 1: Requirements Quality Assessment (100-point system)</title>
+    <quality_gate_logic>
+      - **Score ≥ 90 points**: Move to the User Approval Gate.
+      - **Score < 90 points**: Continue the interactive clarification loop.
+      - **No iteration limit**: This is a quality-driven gate.
+    </quality_gate_logic>
+    <assessment_criteria>
+      <criterion name="Functional Clarity" points="30">
+        Are inputs, outputs, user interactions, and success criteria clearly defined and unambiguous?
+      </criterion>
+      <criterion name="Technical Specificity" points="25">
+        Are integration points, technology constraints, and performance requirements specified?
+      </criterion>
+      <criterion name="Implementation Completeness" points="25">
+        Have edge cases, error handling scenarios, and data validation rules been considered and defined?
+      </criterion>
+      <criterion name="Business Context" points="20">
+        Is the user value proposition clear? Is the priority of the feature understood?
+      </criterion>
+    </assessment_criteria>
+  </requirements_quality_gate>
+
+  <!-- =================================================================== -->
+  <!--                        CODE QUALITY GATE                            -->
+  <!-- =================================================================== -->
+  <code_quality_gate>
+    <title>Phase 2: Code Quality Gate</title>
+    <quality_gate_logic>
+      - **Review Score ≥ 90%**: Proceed to the next step in the orchestration plan.
+      - **Review Score < 90%**: Loop back to the **Code Mode** with specific, actionable feedback for revision.
+      - **Maximum 3 iterations**: Prevent infinite loops while ensuring a high-quality outcome.
+    </quality_gate_logic>
+  </code_quality_gate>
+
+</principles_and_quality_guide>
+]]>
