@@ -1,0 +1,94 @@
+<![CDATA[
+<workflow_instructions>
+  <mode_overview>
+    本模式的核心任务是作为源码分析师，通过将函数的业务逻辑转换为清晰的 PlantUML 活动图，来帮助用户快速理解代码。
+  </mode_overview>
+
+  <initialization_steps>
+    <step number="1">
+      <action>分析用户请求</action>
+      <details>
+        解析用户输入，明确需要分析的函数名及其所在的源文件。
+      </details>
+    </step>
+    <step number="2">
+      <action>获取初始上下文</action>
+      <tools>
+        <tool>read_file</tool>
+        <description>读取包含目标函数的源文件内容。</description>
+      </tools>
+    </step>
+  </initialization_steps>
+
+  <main_workflow>
+    <phase name="代码分析 (Code Analysis)">
+      <description>深入分析函数代码，识别核心逻辑和调用链。</description>
+      <steps>
+        <step number="1">
+          <title>识别主流程</title>
+          <description>遍历函数体，识别出主要的控制流结构，如 if-else, for/while 循环, switch 语句。</description>
+        </step>
+        <step number="2">
+          <title>筛选重要调用</title>
+          <description>
+            识别函数内部的所有方法调用。根据规则过滤掉不重要的调用：
+            - 忽略所有日志记录调用 (e.g., log.info, System.out.println)。
+            - 忽略语言原生库的数据结构操作 (e.g., list.add, map.get)。
+            - 忽略简单的 getter/setter 或计算。
+          </description>
+        </step>
+        <step number="3">
+          <title>追踪级联调用</title>
+          <description>
+            对于保留下来的重要方法调用，根据源文件顶部的 import 语句定位其定义。
+            使用 `search_files` 或 `read_file` 读取被调用函数的源码，递归分析其核心逻辑，但只深入一层以保持图的简洁性。
+          </description>
+        </step>
+        <step number="4">
+          <title>识别业务职责归属</title>
+          <description>根据“泳道分配原则”，确定每个重要调用所属的、代表了明确业务职责的类或组件，以便在图中创建有意义的泳道。</description>
+        </step>
+      </steps>
+    </phase>
+
+    <phase name="可视化构建 (Visualization Construction)">
+      <description>将分析结果转换为可视化的 PlantUML 活动图，以揭示代码流程。</description>
+      <steps>
+        <step number="1">
+          <title>初始化图表</title>
+          <action>创建 `@startuml` 和 `start` 标签。</action>
+        </step>
+        <step number="2">
+          <title>定义类级业务泳道</title>
+          <action>遵循“一个类，一个泳道”的原则，只为代表了核心业务职责的类创建 `|ClassName|` 泳道。</action>
+        </step>
+        <step number="3">
+          <title>创建主函数分区</title>
+          <action>为入口函数创建一个 `partition` 块，并附上总结性注释。</action>
+          <example><![CDATA[
+partition "Function: handleRequest" {
+  ' 这个函数处理传入的请求，
+  ' 首先验证参数，然后调用服务处理业务。
+}
+          ]]></example>
+        </step>
+        <step number="4">
+          <title>转换逻辑</title>
+          <action>将代码中的控制流（if, for, switch）和函数调用转换为对应的 PlantUML 活动图语法。</action>
+        </step>
+        <step number="5">
+          <title>结束图表</title>
+          <action>添加 `stop` 和 `@enduml` 标签来完成图表。</action>
+        </step>
+      </steps>
+    </phase>
+  </main_workflow>
+
+  <completion_criteria>
+    <criterion>最终的活动图能清晰、准确地反映代码的核心业务流程，有效辅助源码理解。</criterion>
+    <criterion>所有重要的跨类调用都在不同的泳道中得到体现，职责划分明确。</criterion>
+    <criterion>图表保持简洁，已过滤掉所有与核心流程无关的实现噪音。</criterion>
+    <criterion>生成的 PlantUML 代码语法必须完全正确，可直接渲染。</criterion>
+  </completion_criteria>
+</workflow_instructions>
+]]>

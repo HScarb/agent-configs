@@ -1,0 +1,74 @@
+<![CDATA[
+<best_practices>
+  <general_principles>
+    <principle priority="high">
+      <name>洞察力优于完整性 (Insight over Completeness)</name>
+      <description>活动图的目标是提供对核心流程的洞察，而不是 1:1 复刻代码。必须大胆省略不影响理解主干逻辑的细节。</description>
+      <rationale>过于复杂的图表会掩盖关键洞察，失去其作为分析工具的价值。</rationale>
+    </principle>
+    <principle priority="medium">
+      <name>遵循最新的 PlantUML 语法</name>
+      <description>使用现代的关键字，例如 `if/then/else/endif`, `while/endwhile`。避免使用旧的、通过箭头和菱形手动构建的语法。</description>
+      <rationale>现代语法更具可读性，生成的图表布局也更优。</rationale>
+    </principle>
+  </general_principles>
+
+  <code_analysis_conventions>
+    <convention category="call_filtering">
+      <rule>定义“重要调用”</rule>
+      <description>
+        一个调用是重要的，如果它：
+        1. **体现应用核心业务**：调用属于项目自身的、定义了核心业务逻辑的类。
+        2. **执行关键 I/O 或状态变更**：例如数据库访问、外部服务调用等。
+        3. **是复杂流程的入口**：代表一个重要的子流程或算法的开始。
+
+        同时，应主动排除那些 **不包含应用特有业务逻辑** 的通用框架类或语言内置组件的调用。
+      </description>
+    </convention>
+    <convention category="recursion_depth">
+      <rule>限制级联分析深度</rule>
+      <description>在分析级联调用时，通常只深入一层。如果第二层调用还包含重要逻辑，可以用注释或简化的活动节点来表示，而不是完整地展开它。</description>
+      <rationale>无限递归分析会使图表无限膨胀，失去焦点。</rationale>
+    </convention>
+  </code_analysis_conventions>
+
+  <plantuml_conventions>
+    <convention category="swimlane_allocation">
+      <rule>泳道分配原则</rule>
+      <description>
+        泳道在活动图中代表一个 **职责单一的参与者**，其粒度应遵循以下原则：
+        1.  **一个类，一个泳道**：泳道代表的是一个类或一个高内聚的组件，而不是单个方法。一个类中的所有活动都应在同一个泳道内。
+        2.  **业务聚焦**：只为那些体现了应用核心业务职责的类创建泳道。
+      </description>
+      <rationale>将泳道与类绑定，可以清晰地展示对象之间的协作关系。避免为方法或通用工具类创建泳道，能有效降低图表复杂度，凸显真正的业务架构。</rationale>
+    </convention>
+    <convention category="activity_naming">
+      <rule>活动节点命名</rule>
+      <description>活动节点应以动词开始，并清晰描述其操作。例如 `:validateParameters();` 或 `:fetchUserFromDatabase();`。</description>
+    </convention>
+    <convention category="notes">
+      <rule>善用注释</rule>
+      <description>使用 `note left` 或 `note right` 为复杂的步骤或判断条件添加额外的解释。</description>
+    </convention>
+    <convention category="partition_usage">
+      <rule>合理使用分区</rule>
+      <description>只为入口函数创建主分区。对于级联调用，如果它足够复杂，可以在其自己的泳道内创建一个嵌套分区，但这应谨慎使用。</description>
+    </convention>
+  </plantuml_conventions>
+
+  <quality_checklist>
+    <category name="analysis">
+      <item>是否已识别出所有重要的业务类调用？</item>
+      <item>是否已正确忽略所有日志、原生库和简单计算？</item>
+      <item>是否已识别出所有相关的类用于创建泳道？</item>
+    </category>
+    <category name="visualization">
+      <item>图表是否能清晰地讲述一个关于代码如何工作的故事？</item>
+      <item>每个重要的类是否都在独立的泳道中，职责是否清晰？</item>
+      <item>控制流是否使用了现代语法，易于理解？</item>
+      <item>主函数分区和注释是否有效地概括了其核心职责？</item>
+      <item>最终的 PlantUML 代码是否无语法错误且布局合理？</item>
+    </category>
+  </quality_checklist>
+</best_practices>
+]]>

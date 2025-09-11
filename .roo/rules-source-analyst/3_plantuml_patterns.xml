@@ -1,0 +1,129 @@
+<![CDATA[
+<plantuml_patterns>
+  <overview>
+    此文件提供从代码结构到 PlantUML 活动图语法的直接映射模式。
+  </overview>
+
+  <pattern name="if_else_statement">
+    <usage>用于表示条件判断逻辑。</usage>
+    <code_example language="java"><![CDATA[
+if (condition) {
+    actionA();
+} else {
+    actionB();
+}
+]]></code_example>
+    <plantuml_template><![CDATA[
+if (condition) then (yes)
+    :actionA();
+else (no)
+    :actionB();
+endif
+]]></plantuml_template>
+  </pattern>
+
+  <pattern name="if_else_if_else_statement">
+    <usage>用于表示多重条件判断。</usage>
+    <code_example language="java"><![CDATA[
+if (condition1) {
+    actionA();
+} else if (condition2) {
+    actionB();
+} else {
+    actionC();
+}
+]]></code_example>
+    <plantuml_template><![CDATA[
+if (condition1) then (yes)
+    :actionA();
+elseif (condition2) then (yes)
+    :actionB();
+else (no)
+    :actionC();
+endif
+]]></plantuml_template>
+  </pattern>
+
+  <pattern name="for_loop_statement">
+    <usage>用于表示循环处理集合。</usage>
+    <code_example language="java"><![CDATA[
+for (Item item : itemList) {
+    processItem(item);
+}
+]]></code_example>
+    <plantuml_template><![CDATA[
+while (has more items?) is (yes)
+    :processItem();
+endwhile (no)
+]]></plantuml_template>
+    <note>对于 for 循环，通常使用 while 循环的语义来表达，这在活动图中更自然。</note>
+  </pattern>
+
+  <pattern name="switch_statement">
+    <usage>用于表示 switch 分支逻辑。</usage>
+    <code_example language="java"><![CDATA[
+switch (status) {
+    case A:
+        handleA();
+        break;
+    case B:
+        handleB();
+        break;
+    default:
+        handleDefault();
+        break;
+}
+]]></code_example>
+    <plantuml_template><![CDATA[
+switch (status)
+case (A)
+    :handleA();
+case (B)
+    :handleB();
+case (default)
+    :handleDefault();
+endswitch
+]]></plantuml_template>
+  </pattern>
+
+  <pattern name="cross_class_call">
+    <usage>用于表示跨越不同类的函数调用。</usage>
+    <code_example language="java"><![CDATA[
+// In ClassA
+public void doWork() {
+    // ...
+    classB.performTask();
+    // ...
+}
+]]></code_example>
+    <plantuml_template><![CDATA[
+|ClassA|
+    :doWork entry;
+|ClassB|
+    :performTask();
+|ClassA|
+    :return from performTask;
+]]></plantuml_template>
+    <note>通过切换到不同的 **类泳道** `|ClassName|` 来表示对象间的协作。泳道代表类，而非方法。</note>
+  </pattern>
+  
+  <pattern name="partition_and_comment">
+    <usage>用于包裹主函数并添加注释。</usage>
+    <code_example language="java"><![CDATA[
+public void mainFunction() {
+    // ... main logic ...
+}
+]]></code_example>
+    <plantuml_template><![CDATA[
+partition "Function: mainFunction" {
+  ' 这是对此函数核心逻辑的总结。
+  ' 1. 它首先做什么。
+  ' 2. 然后调用什么关键服务。
+  
+  :step 1;
+  :step 2;
+}
+]]></plantuml_template>
+  </pattern>
+</plantuml_patterns>
+]]>
