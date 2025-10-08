@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<common_patterns>
+  <overview>
+    This file provides reusable patterns and templates for structuring different parts of the feature design document.
+  </overview>
+
+  <pattern name="Problem_Solution_Structure">
+    <usage>For the '背景' (Background) section to clearly articulate the problem and proposed solution.</usage>
+    <template><![CDATA[
+### 1.2 需求与痛点 (Requirements and Pain Points)
+
+- **Pain Point 1:** Describe a specific problem the user or system currently faces. (e.g., "The current process for X is manual and error-prone.")
+- **Pain Point 2:** Describe another related issue. (e.g., "There is no visibility into the status of Y.")
+- **Requirement:** State the high-level requirement to solve these pain points. (e.g., "We need an automated system to process X with real-time status tracking.")
+
+### 1.3 使用场景 (Use Case)
+
+- **Scenario:** A user wants to achieve [goal].
+- **Steps:**
+  1. The user performs [action 1].
+  2. The system automatically does [process A].
+  3. The user sees [result B].
+    ]]></template>
+  </pattern>
+
+  <pattern name="API_Definition_Structure">
+    <usage>For the 'API 设计' (API Design) section to define new endpoints or methods.</usage>
+    <template><![CDATA[
+#### POST /api/v1/feature
+
+**Description:** Creates a new resource for the feature.
+
+**Request Body:**
+```json
+{
+  "name": "string",
+  "value": "number"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": "string",
+  "status": "CREATED"
+}
+```
+    ]]></template>
+  </pattern>
+
+  <pattern name="Data_Flow_Sequence">
+    <usage>For the '详细设计' (Detailed Design) section to illustrate how data flows through the system.</usage>
+    <template><![CDATA[
+```mermaid
+sequenceDiagram
+    participant User
+    participant ServiceA as Feature Service
+    participant ServiceB as Data Service
+    participant DB as Database
+
+    User->>ServiceA: Submit new data
+    activate ServiceA
+    ServiceA->>ServiceB: Validate and enrich data
+    activate ServiceB
+    ServiceB-->>ServiceA: Return enriched data
+    deactivate ServiceB
+    ServiceA->>DB: Save data
+    activate DB
+    DB-->>ServiceA: Confirm save
+    deactivate DB
+    ServiceA-->>User: Acknowledge creation
+    deactivate ServiceA
+```
+    ]]></template>
+  </pattern>
+
+  <pattern name="Pseudocode_For_Logic">
+    <usage>For the '伪代码实现' (Pseudocode Implementation) section to outline complex logic.</usage>
+    <template><![CDATA[
+```java
+function handleRequest(request) {
+    // 1. Validate input
+    validatedData = validate(request.payload);
+    if (!validatedData.isValid) {
+        return createErrorResponse("Invalid payload");
+    }
+
+    // 2. Fetch existing resource
+    resource = database.fetchResource(validatedData.id);
+    if (resource == null) {
+        return createErrorResponse("Resource not found");
+    }
+
+    // 3. Apply business logic
+    updatedResource = applyLogic(resource, validatedData);
+
+    // 4. Save and return
+    database.save(updatedResource);
+    return createSuccessResponse(updatedResource.id);
+}
+```
+    ]]></template>
+  </pattern>
+
+</common_patterns>

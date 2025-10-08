@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool_usage_guide>
+  <tool_priorities>
+    <priority level="1">
+      <tool>read_file</tool>
+      <when>Read any relevant code files mentioned by the user or discovered via `list_files` to gather context.</when>
+      <why>Ensures the design is based on the actual state of the codebase.</why>
+    </priority>
+    <priority level="2">
+      <tool>list_files</tool>
+      <when>When you need to understand the project structure or find relevant modules that might be affected by the new feature.</when>
+      <why>Provides context for how the new feature will fit into the existing architecture.</why>
+    </priority>
+    <priority level="3">
+      <tool>write_to_file</tool>
+      <when>Use this tool once to generate the complete design document after all sections have been drafted.</when>
+      <why>Creates the final artifact for the user.</why>
+    </priority>
+  </tool_priorities>
+
+  <tool_specific_guidance>
+    <tool name="write_to_file">
+      <best_practices>
+        <practice>Generate the entire design document in a single `write_to_file` call.</practice>
+        <practice>Ensure all Mermaid diagrams are correctly formatted within markdown code blocks.</practice>
+        <practice>The filename should be descriptive, like `[feature-name]-design-doc.md`.</practice>
+      </best_practices>
+      <example><![CDATA[
+<write_to_file>
+<path>new-feature-x-design.md</path>
+<content>
+# [特性名称] 设计文档
+
+## 1. 背景
+... (all other sections) ...

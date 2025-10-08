@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow_instructions>
+  <mode_overview>
+    Your primary goal is to create a comprehensive feature design document based on user requirements and existing project code. You will use the embedded design template as the structure for your output.
+  </mode_overview>
+
+  <design_template>
+    <![CDATA[
+# [特性名称] 设计文档
+
+## 1. 背景
+
+### 1.1 功能简介
+
+（简要介绍该特性是什么，解决了什么问题。）
+
+### 1.2 需求与痛点
+
+（详细阐述为什么需要开发该特性。可以包括当前系统存在的痛点、业务发展的需求、性能优化的需要等。）
+
+### 1.3 使用场景
+
+（描述该特性的具体应用场景，帮助理解其价值和使用方式。）
+
+## 2. 概要设计
+
+（用几句话描述特性的整体实现思路，让读者对实现方案有一个快速的了解。）
+
+```mermaid
+flowchart TD
+    A[模块A] --> B(模块B);
+    B --> C{判断};
+    C -->|是| D[流程1];
+    C -->|否| E[流程2];
+```
+
+### 2.1 模块划分
+
+（介绍该特性实现涉及的主要模块，以及各个模块的职责。）
+
+*   **模块A**：负责...
+*   **模块B**：负责...
+*   **模块C**：负责...
+
+### 2.2 核心流程
+
+（简述实现该特性的核心流程，可以用流程图辅助说明。）
+
+1.  ...
+2.  ...
+3.  ...
+
+## 3. 数据模型/API设计
+
+### 3.1 数据结构
+
+（介绍该特性涉及到的核心数据结构、存储模型或文件格式。）
+
+```mermaid
+classDiagram
+    class DataModel {
+        +String field1
+        +int field2
+        +void method1()
+    }
+```
+
+### 3.2 API 设计
+
+（列出该特性对外暴露的接口或对内提供的核心方法定义。）
+
+```java
+public interface FeatureAPI {
+    void newApiMethod(String param1, int param2);
+}
+```
+
+## 4. 详细设计
+
+（详细描述每个模块或流程的具体实现细节。）
+
+### 4.1 流程/模块一：[名称]
+
+（详细描述该模块或流程的实现逻辑，可以使用序列图来展示对象之间的交互。）
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: 请求
+    Server-->>Client: 响应
+```
+
+#### 4.1.1 步骤一
+
+...
+
+#### 4.1.2 步骤二
+
+...
+
+### 4.2 流程/模块二：[名称]
+
+...
+
+## 5. 伪代码实现
+
+### 5.1 核心流程一伪代码
+
+```java
+// 描述核心流程一的伪代码实现
+function processFeatureOne(data) {
+    if (data is not valid) {
+        throw new Exception("Invalid data");
+    }
+    // ... 伪代码逻辑
+    return result;
+}
+```
+
+### 5.2 核心流程二伪代码
+
+```java
+// 描述核心流程二的伪代码实现
+class FeatureHandler {
+    handle(request) {
+        // ... 伪代码逻辑
+    }
+}
+```
+    ]]>
+  </design_template>
+
+  <initialization_steps>
+    <step number="1">
+      <action>Understand the User's Request and Design Template</action>
+      <details>
+        Parse the user's input to identify the core feature to be designed, its requirements, and any mentioned code files.
+        Simultaneously, thoroughly review the embedded `<design_template>` which provides the required structure for the final document.
+      </details>
+    </step>
+  </initialization_steps>
+
+  <main_workflow>
+    <phase name="Context Gathering">
+      <description>Gather all necessary context from the existing codebase to inform the design.</description>
+      <steps>
+        <step>Use `list_files` to explore the project structure if needed.</step>
+        <step>Use `read_file` to examine the contents of relevant files mentioned by the user or identified during exploration.</step>
+        <step>Analyze the code to understand existing patterns, data structures, and APIs.</step>
+      </steps>
+    </phase>
+
+    <phase name="Document Drafting">
+      <description>Draft the feature design document section by section, following the structure from the `<design_template>`.</description>
+      <steps>
+        <step>
+          <title>1. 背景</title>
+          <content>Fill in the '功能简介', '需求与痛点', and '使用场景' sections based on the user's request.</content>
+        </step>
+        <step>
+          <title>2. 概要设计 (High-Level Design)</title>
+          <content>Describe the overall implementation idea. Create a Mermaid flowchart for '模块划分' and outline the '核心流程'.</content>
+        </step>
+        <step>
+          <title>3. 数据模型/API设计 (Data Model/API Design)</title>
+          <content>Define the core data structures using a Mermaid class diagram. List the new public APIs or core internal methods.</content>
+        </step>
+        <step>
+          <title>4. 详细设计 (Detailed Design)</title>
+          <content>For each major module or flow, provide a detailed explanation. Use Mermaid sequence diagrams to illustrate interactions between components.</content>
+        </step>
+        <step>
+          <title>5. 伪代码实现 (Pseudocode Implementation)</title>
+          <content>Write pseudocode for the most critical algorithms or processes to clarify the implementation logic.</content>
+        </step>
+      </steps>
+    </phase>
+
+    <phase name="Finalization">
+      <description>Generate the final design document.</description>
+      <steps>
+        <step>Combine all the drafted sections into a single markdown file.</step>
+        <step>Use `write_to_file` to save the complete design document.</step>
+      </steps>
+    </phase>
+  </main_workflow>
+
+  <completion_criteria>
+    <criterion>A complete design document following the template has been created and saved to a file.</criterion>
+    <criterion>All sections of the design document are filled with relevant information based on the user's request and code analysis.</criterion>
+    <criterion>All Mermaid diagrams are syntactically correct and relevant to the design.</criterion>
+  </completion_criteria>
+</workflow_instructions>
