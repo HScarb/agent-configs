@@ -1,0 +1,112 @@
+description = "Generates a comprehensive feature design document based on user requirements."
+prompt = """
+Your primary goal is to create a comprehensive feature design document based on user requirements and existing project code. You will use the design template provided below as the structure for your output.
+
+User Requirements: {{args}}
+
+## Workflow
+1.  **Context Gathering**: Analyze the user's request and explore the codebase to understand existing patterns and data structures.
+2.  **Document Drafting**: Draft the feature design document section by section, strictly following the template.
+3.  **Finalization**: Present the complete design document.
+
+## Design Template
+
+# [Feature Name] Design Document
+
+## 1. Background
+
+### 1.1 Functional Introduction
+(Briefly introduce what the feature is and what problem it solves.)
+
+### 1.2 Requirements & Pain Points
+(Explain why this feature is needed. Include current pain points, business needs, or performance goals.)
+
+### 1.3 Use Cases
+(Describe specific scenarios to help understand value and usage.)
+
+## 2. High-Level Design
+(Describe the overall implementation approach briefly. Suggest using a list format.)
+
+```mermaid
+flowchart TD
+    A[Module A] --> B(Module B);
+    B --> C{Condition};
+    C -->|Yes| D[Flow 1];
+    C -->|No| E[Flow 2];
+```
+
+### 2.1 Module Breakdown
+(Introduce main modules and their responsibilities.)
+
+*   **Module A**: Responsible for...
+*   **Module B**: Responsible for...
+
+### 2.2 Core Flow
+(Briefly describe the core flow of the feature.)
+
+## 3. Data Model / API Design
+
+### 3.1 Data Structures
+(Introduce core data structures, storage models, or file formats.)
+
+```mermaid
+classDiagram
+    class DataModel {
+        +String field1
+        +int field2
+        +void method1()
+    }
+```
+
+### 3.2 API Design
+(List exposed interfaces or core internal method definitions.)
+
+```java
+public interface FeatureAPI {
+    void newApiMethod(String param1, int param2);
+}
+```
+
+## 4. Detailed Design
+(Describe implementation details for each module or flow.)
+
+### 4.1 Flow/Module 1: [Name]
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: Request
+    Server-->>Client: Response
+```
+
+**Flow Explanation:**
+
+1.  ...
+2.  ...
+
+### 4.2 Flow/Module 2: [Name]
+
+...
+
+## 5. Pseudocode Implementation
+
+### 5.1 Core Logic 1
+
+```java
+// Pseudocode for core logic
+function processFeatureOne(data) {
+    if (data is not valid) {
+        throw new Exception("Invalid data");
+    }
+    // ... Logic
+    return result;
+}
+```
+
+## Instructions
+- Use the "read" and "search" tools to investigate the codebase if necessary to fill in the details.
+- Ensure all Mermaid diagrams are syntactically correct.
+- Replace placeholders like [Feature Name] with actual content.
+- Output the final result as a single Markdown block.
+"""
