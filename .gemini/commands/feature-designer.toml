@@ -68,41 +68,114 @@ public interface FeatureAPI {
 ```
 
 ## 4. Detailed Design
-(Describe implementation details for each module or flow.)
+(Describe implementation details for each module or flow. For each flow or module, you MUST:
+1. First present a Mermaid diagram with numbered steps (e.g., "1. Step Name", "2. Step Name")
+2. Then provide a numbered list explanation below the diagram
+3. The list numbers MUST correspond to the step numbers in the diagram)
 
 ### 4.1 Flow/Module 1: [Name]
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant Client
     participant Server
-    Client->>Server: Request
-    Server-->>Client: Response
+    participant Database
+    Client->>Server: 1. Send Request
+    Server->>Server: 2. Validate Request
+    Server->>Database: 3. Query Data
+    Database-->>Server: 4. Return Data
+    Server-->>Client: 5. Send Response
 ```
 
 **Flow Explanation:**
 
-1.  ...
-2.  ...
+1.  **Send Request**: Client initiates a request to the server with required parameters.
+2.  **Validate Request**: Server validates the request parameters and checks authentication.
+3.  **Query Data**: Server queries the database for the required information.
+4.  **Return Data**: Database returns the query results to the server.
+5.  **Send Response**: Server processes the data and sends the response back to the client.
 
 ### 4.2 Flow/Module 2: [Name]
 
-...
+```mermaid
+flowchart TD
+    A["1. Start Process"] --> B["2. Initialize"]
+    B --> C{"3. Check Condition"}
+    C -->|Yes| D["4. Process Branch A"]
+    C -->|No| E["5. Process Branch B"]
+    D --> F["6. Finalize"]
+    E --> F
+```
+
+**Flow Explanation:**
+
+1.  **Start Process**: Entry point of the flow.
+2.  **Initialize**: Set up necessary variables and configurations.
+3.  **Check Condition**: Evaluate the business logic condition.
+4.  **Process Branch A**: Execute when condition is true.
+5.  **Process Branch B**: Execute when condition is false.
+6.  **Finalize**: Complete the process and clean up resources.
 
 ## 5. Pseudocode Implementation
+(Use pseudocode to illustrate KEY CHANGES only. Keep it highly concise and abstract:
+- Expand method body with minimal pseudo-logic inside
+- Focus on WHAT changes, not detailed implementation
+- Use `// ...` to skip unchanged parts)
 
-### 5.1 Core Logic 1
+### 5.1 Key Changes
 
-```java
-// Pseudocode for core logic
-function processFeatureOne(data) {
-    if (data is not valid) {
-        throw new Exception("Invalid data");
-    }
-    // ... Logic
-    return result;
+```
+// NEW
+UserService.validateQuota(userId) {
+    quota = getQuota(userId)
+    if quota.exceeded -> throw QuotaError
+}
+
+// MODIFIED
+OrderProcessor.submit(order) {
+    // ...
+    queue.pushAsync(order)  // Changed: sync -> async
+    return pendingStatus
+}
+
+// MODIFIED
+PaymentHandler.process(payment) {
+    result = gateway.charge(payment)
+    if success -> notify(user) + updateCache()
+    if failure -> retry(3x) -> fallback(manualReview)
 }
 ```
+
+## 6. Implementation Plan
+(Break down the design into actionable steps/phases. Consider:
+- For simple features: just list tasks without phases
+- For larger features: use phases, Phase 1 for foundation/prerequisites
+- Mark dependencies only when they exist
+- Prioritize by importance: P0=Must have, P1=Should have, P2=Nice to have)
+
+### Simple Feature Example:
+| Task | Priority | Description |
+|------|----------|-------------|
+| 1. [Task Name] | P0 | [Brief description] |
+| 2. [Task Name] | P0 | [Brief description] |
+| 3. [Task Name] | P1 | [Brief description] |
+
+### Larger Feature Example:
+
+#### Phase 1: Foundation
+> Goal: [Phase goal]
+
+| Task | Priority | Description |
+|------|----------|-------------|
+| 1.1 [Task Name] | P0 | [Brief description] |
+
+#### Phase 2: Core Features
+> Depends on: Phase 1
+
+| Task | Priority | Description |
+|------|----------|-------------|
+| 2.1 [Task Name] | P0 | [Brief description] |
 
 ## Instructions
 - Use the "read" and "search" tools to investigate the codebase if necessary to fill in the details.
