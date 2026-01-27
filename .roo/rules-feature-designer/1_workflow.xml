@@ -110,29 +110,41 @@ sequenceDiagram
 
 ...
 
-## 5. 伪代码实现
+## 5. 实现变更
 
-### 5.1 核心流程一伪代码
+(用代码框架标明修改位置，用自然语言描述具体变更。聚焦于"改什么"，保持简洁高密度。)
 
-```java
-// 描述核心流程一的伪代码实现
-function processFeatureOne(data) {
-    if (data is not valid) {
-        throw new Exception("Invalid data");
-    }
-    // ... 伪代码逻辑
-    return result;
-}
+**标记约定：**
+- `// NEW: <文件路径>` - 新增文件或类
+- `// MODIFIED: <文件路径>` - 修改现有文件
+- `// ...existing...` - 省略未改动部分
+- `[改]` - 修改现有逻辑
+- `[增]` - 新增逻辑
+- `[删]` - 删除逻辑
+
+### 5.1 关键变更
+
 ```
-
-### 5.2 核心流程二伪代码
-
-```java
-// 描述核心流程二的伪代码实现
-class FeatureHandler {
-    handle(request) {
-        // ... 伪代码逻辑
+// NEW: src/services/UserService.ts
+class UserService {
+    validateQuota(userId) {
+        // 查询用户配额，超限则抛出 QuotaError
     }
+}
+
+// MODIFIED: src/processors/OrderProcessor.ts
+class OrderProcessor {
+    submit(order) {
+        // ...existing validation...
+        // [改] 队列推送: 同步 → 异步
+        // [改] 返回值: 最终结果 → pending 状态 + 任务ID
+    }
+}
+
+// MODIFIED: src/handlers/PaymentHandler.ts
+PaymentHandler.process(payment) {
+    // [增] 成功后: 通知用户 + 更新缓存
+    // [增] 失败处理: 重试3次 → 降级至人工审核
 }
 ```
     ]]>
@@ -178,8 +190,8 @@ class FeatureHandler {
           <content>For each major module or flow, provide a detailed explanation. Use Mermaid sequence diagrams to illustrate interactions between components.</content>
         </step>
         <step>
-          <title>5. 伪代码实现 (Pseudocode Implementation)</title>
-          <content>Write pseudocode for the most critical algorithms or processes to clarify the implementation logic.</content>
+          <title>5. 实现变更 (Implementation Changes)</title>
+          <content>Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Keep it concise and high-density.</content>
         </step>
       </steps>
     </phase>

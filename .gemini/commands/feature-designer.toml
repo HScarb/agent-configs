@@ -117,33 +117,40 @@ flowchart TD
 5.  **Process Branch B**: Execute when condition is false.
 6.  **Finalize**: Complete the process and clean up resources.
 
-## 5. Pseudocode Implementation
-(Use pseudocode to illustrate KEY CHANGES only. Keep it highly concise and abstract:
-- Expand method body with minimal pseudo-logic inside
-- Focus on WHAT changes, not detailed implementation
-- Use `// ...` to skip unchanged parts)
+## 5. Implementation Changes
+(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Keep it concise and high-density.)
+
+**Markers:**
+- `// NEW: <file-path>` - New file or class
+- `// MODIFIED: <file-path>` - Modify existing file
+- `// ...existing...` - Skip unchanged parts
+- `[MOD]` - Modify existing logic
+- `[ADD]` - Add new logic
+- `[DEL]` - Delete logic
 
 ### 5.1 Key Changes
 
 ```
-// NEW
-UserService.validateQuota(userId) {
-    quota = getQuota(userId)
-    if quota.exceeded -> throw QuotaError
+// NEW: src/services/UserService.ts
+class UserService {
+    validateQuota(userId) {
+        // Query user quota, throw QuotaError if exceeded
+    }
 }
 
-// MODIFIED
-OrderProcessor.submit(order) {
-    // ...
-    queue.pushAsync(order)  // Changed: sync -> async
-    return pendingStatus
+// MODIFIED: src/processors/OrderProcessor.ts
+class OrderProcessor {
+    submit(order) {
+        // ...existing validation...
+        // [MOD] Queue push: sync → async
+        // [MOD] Return value: final result → pending status + taskId
+    }
 }
 
-// MODIFIED
+// MODIFIED: src/handlers/PaymentHandler.ts
 PaymentHandler.process(payment) {
-    result = gateway.charge(payment)
-    if success -> notify(user) + updateCache()
-    if failure -> retry(3x) -> fallback(manualReview)
+    // [ADD] On success: notify user + update cache
+    // [ADD] On failure: retry 3x → fallback to manual review
 }
 ```
 
@@ -182,4 +189,6 @@ PaymentHandler.process(payment) {
 - Ensure all Mermaid diagrams are syntactically correct.
 - Replace placeholders like [Feature Name] with actual content.
 - Output the final result as a single Markdown block.
+- **Write the document in the user's language** (e.g., if user writes in Chinese, output in Chinese).
+- **Save the document** to `docs/` or `doc/` directory in the project root (create if not exists).
 """

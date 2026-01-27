@@ -14,10 +14,10 @@
     - The list numbers MUST correspond to the step numbers in the Mermaid diagram.
     - Use sequenceDiagram with autonumber for interaction flows, or flowchart with numbered labels for process flows.
 
-    For the Pseudocode Implementation section (Chapter 5), you MUST follow these rules:
-    - Expand method body with minimal pseudo-logic inside.
-    - Focus on WHAT changes, not detailed implementation.
-    - Use `// ...` to skip unchanged parts within methods.
+    For the Implementation Changes section (Chapter 5), you MUST follow these rules:
+    - Use code skeleton to show WHERE to change, use natural language to describe WHAT to change.
+    - Use markers: `// NEW: <file-path>`, `// MODIFIED: <file-path>`, `// ...existing...`
+    - Use tags: `[MOD]` for modify, `[ADD]` for add, `[DEL]` for delete.
 
     For the Implementation Plan section (Chapter 6), you MUST follow these rules:
     - For simple features: just list tasks without phases.

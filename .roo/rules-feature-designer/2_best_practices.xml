@@ -68,7 +68,7 @@ sequenceDiagram
     <category name="Before Finalizing">
       <item>Does the design fully address all user requirements?</item>
       <item>Are all diagrams (flowchart, class, sequence) clear and accurate?</item>
-      <item>Is the pseudocode easy to understand and does it correctly represent the intended logic?</item>
+      <item>Are the implementation changes clear about WHERE and WHAT to change?</item>
       <item>Have all sections of the template been filled out appropriately?</item>
     </category>
   </quality_checklist>
