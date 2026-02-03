@@ -129,38 +129,73 @@ flowchart TD
 6. **Finalize**: Complete the process and clean up resources.
 
 ## 5. Implementation Changes
-(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Keep it concise and high-density.)
+(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Organize by process/module for larger features. Each file in a separate code block. Keep it concise and high-density.)
 
 **Markers:**
 - `// NEW: <file-path>` - New file or class
 - `// MODIFIED: <file-path>` - Modify existing file
 - `// ...existing...` - Skip unchanged parts
-- `[MOD]` - Modify existing logic
-- `[ADD]` - Add new logic
-- `[DEL]` - Delete logic
+- `// @before: <code>` / `// @after: <code>` - Indicate position within method
+- `// + <description>` - Add new logic
+- `// ~ <description>` - Modify existing logic (use `old → new` format when helpful)
+- `// - <description>` - Delete logic
 
-### 5.1 Key Changes
+### 5.1 [Process/Module Name]
+> Brief summary of changes in this part.
+
 ```
 // NEW: src/services/UserService.ts
 class UserService {
     validateQuota(userId) {
-        // Query user quota, throw QuotaError if exceeded
+        // Query user quota from quotaStore
+        // Compare usage against limit, throw QuotaExceededError if exceeded
+        // Return remaining quota for client display
     }
 }
+```
 
+```
+// NEW: src/stores/QuotaStore.ts
+class QuotaStore {
+    cache: Map<userId, QuotaInfo>  // TTL: 5 minutes
+
+    getQuota(userId) {
+        // Check cache first, return if valid
+        // Otherwise query database, update cache with TTL
+    }
+
+    incrementUsage(userId, amount) {
+        // Atomic increment in database, invalidate cache
+    }
+}
+```
+
+### 5.2 [Another Process/Module Name]
+> Brief summary of changes in this part.
+
+```
 // MODIFIED: src/processors/OrderProcessor.ts
 class OrderProcessor {
     submit(order) {
         // ...existing validation...
-        // [MOD] Queue push: sync → async
-        // [MOD] Return value: final result → pending status + taskId
+        // @after: validation
+        // ~ queue.push(order) → queue.pushAsync(order)
+        // + order.status = PENDING
+        // + emit('order:submitted', order)
     }
-}
 
+    // - processSync(order) - entire method removed, replaced by async flow
+}
+```
+
+```
 // MODIFIED: src/handlers/PaymentHandler.ts
-PaymentHandler.process(payment) {
-    // [ADD] On success: notify user + update cache
-    // [ADD] On failure: retry 3x → fallback to manual review
+class PaymentHandler {
+    process(payment) {
+        // ~ gateway.charge(payment) → wrap with retry(3x, exponentialBackoff)
+        // + On success: notify(user) + updateCache()
+        // + On failure: route to manualReviewQueue
+    }
 }
 ```
 
