@@ -74,20 +74,37 @@ sequenceDiagram
     ]]></template>
   </pattern>
 
+  <pattern name="Directory_Structure">
+    <usage>For the '概要设计' (High-Level Design) section to show the directory layout for new or modified files. Only include when the feature involves multiple new files or significant restructuring.</usage>
+    <template><![CDATA[
+### 2.3 目录结构 (Directory Structure)
+
+```
+src/main/java/com/example/
+├── service/
+│   └── NewService.java         # (NEW) Service description
+├── repository/
+│   └── NewRepository.java      # (NEW) Repository description
+└── controller/
+    └── ExistingController.java # (MODIFIED) What changes
+```
+    ]]></template>
+  </pattern>
+
   <pattern name="Implementation_Changes">
     <usage>For the '实现变更' (Implementation Changes) section to show code changes with natural language descriptions.</usage>
     <template><![CDATA[
-```
-// NEW: src/services/NewService.ts
-class NewService {
-    newMethod(param) {
+```java
+// NEW: src/main/java/com/example/service/NewService.java
+public class NewService {
+    public void newMethod(String param) {
         // Description of what this method does
     }
 }
 
-// MODIFIED: src/existing/ExistingService.ts
-class ExistingService {
-    existingMethod(param) {
+// MODIFIED: src/main/java/com/example/service/ExistingService.java
+public class ExistingService {
+    public void existingMethod(String param) {
         // ...existing validation...
         // [MOD] Change description: old behavior → new behavior
         // [ADD] New logic: description of what's added

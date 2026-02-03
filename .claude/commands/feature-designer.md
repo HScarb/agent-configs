@@ -62,6 +62,19 @@ flowchart TD
 ### 2.2 Core Flow
 (Briefly describe the core flow of the feature.)
 
+### 2.3 Directory Structure
+(Show the directory layout for new or modified files. Use tree format. Only include when the feature involves multiple new files or significant restructuring.)
+
+```
+src/main/java/com/example/
+├── service/
+│   └── NewService.java         # (NEW) Service description
+├── repository/
+│   └── NewRepository.java      # (NEW) Repository description
+└── controller/
+    └── ExistingController.java # (MODIFIED) What changes
+```
+
 ## 3. Data Model / API Design
 ### 3.1 Data Structures
 (Introduce core data structures, storage models, or file formats.)
