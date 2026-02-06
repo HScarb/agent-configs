@@ -25,14 +25,14 @@ User Requirements: {{args}}
 (Describe specific scenarios to help understand value and usage.)
 
 ## 2. High-Level Design
-(Describe the overall implementation approach briefly. Suggest using a list format.)
+(Describe the overall implementation approach briefly. Use a Mermaid diagram to show the call relationships and data flow between modules/components.)
 
 ```mermaid
 flowchart TD
-    A[Module A] --> B(Module B);
-    B --> C{Condition};
-    C -->|Yes| D[Flow 1];
-    C -->|No| E[Flow 2];
+    A[Module A] --> B[Module B]
+    A --> C[Module C]
+    B --> D[Module D]
+    C --> D
 ```
 
 ### 2.1 Module Breakdown
@@ -42,7 +42,14 @@ flowchart TD
 *   **Module B**: Responsible for...
 
 ### 2.2 Core Flow
-(Briefly describe the core flow of the feature.)
+(Concisely and precisely describe the runtime core flow of the feature. Use a Mermaid diagram to visualize the main execution path or key interactions.)
+
+```mermaid
+flowchart LR
+    A[Step 1] --> B[Step 2]
+    B --> C[Step 3]
+    C --> D[Step 4]
+```
 
 ### 2.3 Directory Structure
 (Show the directory layout for new or modified files. Use tree format. Only include when the feature involves multiple new files or significant restructuring.)
@@ -58,6 +65,7 @@ src/main/java/com/example/
 ```
 
 ## 3. Data Model / API Design
+(Optional. Omit this section if the feature does not involve new data structures or API changes.)
 
 ### 3.1 Data Structures
 (Introduce core data structures, storage models, or file formats.)
@@ -131,39 +139,43 @@ flowchart TD
 6.  **Finalize**: Complete the process and clean up resources.
 
 ## 5. Implementation Changes
-(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Keep it concise and high-density.)
+(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Organize by process/module for larger features. Each file in a separate code block. Keep it concise and high-density.)
 
 **Markers:**
 - `// NEW: <file-path>` - New file or class
 - `// MODIFIED: <file-path>` - Modify existing file
 - `// ...existing...` - Skip unchanged parts
-- `[MOD]` - Modify existing logic
-- `[ADD]` - Add new logic
-- `[DEL]` - Delete logic
+- `// @before: <code>` / `// @after: <code>` - Indicate position within method
+- `// + <description>` - Add new logic
+- `// ~ <description>` - Modify existing logic (use `old → new` format when helpful)
+- `// - <description>` - Delete logic
 
-### 5.1 Key Changes
+### 5.1 [Process/Module Name]
+> Brief summary of changes in this part.
 
 ```
 // NEW: src/services/UserService.ts
 class UserService {
     validateQuota(userId) {
-        // Query user quota, throw QuotaError if exceeded
+        // Query user quota from quotaStore
+        // Compare usage against limit, throw QuotaExceededError if exceeded
+        // Return remaining quota for client display
     }
 }
+```
 
+```
 // MODIFIED: src/processors/OrderProcessor.ts
 class OrderProcessor {
     submit(order) {
         // ...existing validation...
-        // [MOD] Queue push: sync → async
-        // [MOD] Return value: final result → pending status + taskId
+        // @after: validation
+        // ~ queue.push(order) → queue.pushAsync(order)
+        // + order.status = PENDING
+        // + emit('order:submitted', order)
     }
-}
 
-// MODIFIED: src/handlers/PaymentHandler.ts
-PaymentHandler.process(payment) {
-    // [ADD] On success: notify user + update cache
-    // [ADD] On failure: retry 3x → fallback to manual review
+    // - processSync(order) - entire method removed, replaced by async flow
 }
 ```
 
@@ -174,14 +186,18 @@ PaymentHandler.process(payment) {
 - Mark dependencies only when they exist
 - Prioritize by importance: P0=Must have, P1=Should have, P2=Nice to have)
 
-### Simple Feature Example:
+<!-- The following two examples are guidance for choosing the right format.
+Do NOT output these headers ("Simple Feature Example" / "Larger Feature Example") in the actual document.
+Pick the format that fits the feature's complexity. -->
+
+### Simple Feature Format:
 | Task | Priority | Description |
 |------|----------|-------------|
 | 1. [Task Name] | P0 | [Brief description] |
 | 2. [Task Name] | P0 | [Brief description] |
 | 3. [Task Name] | P1 | [Brief description] |
 
-### Larger Feature Example:
+### Larger Feature Format:
 
 #### Phase 1: Foundation
 > Goal: [Phase goal]
@@ -203,5 +219,5 @@ PaymentHandler.process(payment) {
 - Replace placeholders like [Feature Name] with actual content.
 - Output the final result as a single Markdown block.
 - **Write the document in the user's language** (e.g., if user writes in Chinese, output in Chinese).
-- **Save the document** to `docs/` or `doc/` directory in the project root (create if not exists).
+- **Save the document** to the project's existing `docs/` or `doc/` directory. If neither exists, default to `docs/`.
 """

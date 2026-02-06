@@ -44,14 +44,14 @@ You must output the design document using the following structure:
 (Describe specific scenarios to help understand value and usage.)
 
 ## 2. High-Level Design
-(Describe the overall implementation approach briefly. Suggest using a list format.)
+(Describe the overall implementation approach briefly. Use a Mermaid diagram to show the call relationships and data flow between modules/components.)
 
 ```mermaid
 flowchart TD
-    A[Module A] --> B(Module B);
-    B --> C{Condition};
-    C -->|Yes| D[Flow 1];
-    C -->|No| E[Flow 2];
+    A[Module A] --> B[Module B]
+    A --> C[Module C]
+    B --> D[Module D]
+    C --> D
 ```
 
 ### 2.1 Module Breakdown
@@ -60,10 +60,17 @@ flowchart TD
 * **Module B**: Responsible for...
 
 ### 2.2 Core Flow
-(Briefly describe the core flow of the feature.)
+(Concisely and precisely describe the runtime core flow of the feature. Use a Mermaid diagram to visualize the main execution path or key interactions.)
 
-### 2.3 Directory Structure
-(Show the directory layout for new or modified files. Use tree format. Only include when the feature involves multiple new files or significant restructuring.)
+```mermaid
+flowchart LR
+    A[Step 1] --> B[Step 2]
+    B --> C[Step 3]
+    C --> D[Step 4]
+```
+
+### 2.3 Directory Structure *(Conditional)*
+(Show the directory layout for new or modified files. Use tree format. Include only when the feature involves multiple new files or significant restructuring.)
 
 ```
 src/main/java/com/example/
@@ -75,7 +82,9 @@ src/main/java/com/example/
     └── ExistingController.java # (MODIFIED) What changes
 ```
 
-## 3. Data Model / API Design
+## 3. Data Model / API Design *(Optional)*
+(Omit this section if the feature does not involve new data structures or API changes.)
+
 ### 3.1 Data Structures
 (Introduce core data structures, storage models, or file formats.)
 
@@ -89,11 +98,11 @@ classDiagram
 ```
 
 ### 3.2 API Design
-(List exposed interfaces or core internal method definitions.)
+(List exposed interfaces or core internal method definitions. Use the project's language; if language-agnostic, use pseudocode.)
 
-```java
-public interface FeatureAPI {
-    void newApiMethod(String param1, int param2);
+```
+interface FeatureAPI {
+    newApiMethod(param1: String, param2: int): Result
 }
 ```
 
@@ -147,6 +156,8 @@ flowchart TD
 **Markers:**
 - `// NEW: <file-path>` - New file or class
 - `// MODIFIED: <file-path>` - Modify existing file
+- `// MOVED: <old-path> → <new-path>` - File moved or renamed
+- `// RENAMED: <old-name> → <new-name>` - Class, method, or variable renamed
 - `// ...existing...` - Skip unchanged parts
 - `// @before: <code>` / `// @after: <code>` - Indicate position within method
 - `// + <description>` - Add new logic
@@ -220,6 +231,11 @@ class PaymentHandler {
 - Prioritize by importance: P0=Must have, P1=Should have, P2=Nice to have)
 
 ### Simple Feature Example:
+<!--
+The following two examples are guidance for choosing the right format.
+Do NOT output these headers ("Simple Feature Example" / "Larger Feature Example") in the actual document.
+Pick the format that fits the feature's complexity.
+-->
 | Task | Priority | Description |
 |------|----------|-------------|
 | 1. [Task Name] | P0 | [Brief description] |
@@ -247,4 +263,5 @@ class PaymentHandler {
 - Do not wrap the entire output in a code block, but use code blocks for code and diagrams within the document.
 - Ensure all placeholders (like [Feature Name]) are replaced with actual content.
 - **Write the document in the user's language** (e.g., if user writes in Chinese, output in Chinese).
-- **Save the document** to `docs/` or `doc/` directory in the project root (create if not exists).
+- **Save the document** to the project's existing `docs/` or `doc/` directory. If neither exists, default to `docs/`.
+- **File naming**: `<feature-name>-design.md` (lowercase, hyphen-separated).

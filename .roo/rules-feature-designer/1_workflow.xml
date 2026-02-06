@@ -24,17 +24,14 @@
 
 ## 2. 概要设计
 
-（用几句话描述特性的整体实现思路，让读者对实现方案有一个快速的了解。 建议用这样的形式：
-1. xxx
-2. xxx
-3. xxx）
+（简要描述特性的整体实现思路。用 Mermaid 图展示模块/组件之间的调用关系和数据流向。）
 
 ```mermaid
 flowchart TD
-    A[模块A] --> B(模块B);
-    B --> C{判断};
-    C -->|是| D[流程1];
-    C -->|否| E[流程2];
+    A[模块A] --> B[模块B]
+    A --> C[模块C]
+    B --> D[模块D]
+    C --> D
 ```
 
 ### 2.1 模块划分
@@ -47,13 +44,32 @@ flowchart TD
 
 ### 2.2 核心流程
 
-（简述实现该特性的核心流程，可以用流程图辅助说明。）
+（简洁精确地描述运行时的核心流程，用 Mermaid 图可视化主要执行路径或关键交互。）
 
-1.  ...
-2.  ...
-3.  ...
+```mermaid
+flowchart LR
+    A[步骤1] --> B[步骤2]
+    B --> C[步骤3]
+    C --> D[步骤4]
+```
+
+### 2.3 目录结构
+
+（展示新增或修改文件的目录布局，使用树形格式。仅在特性涉及多个新文件或显著重构时包含此节。）
+
+```
+src/main/java/com/example/
+├── service/
+│   └── NewService.java         # (NEW) 服务描述
+├── repository/
+│   └── NewRepository.java      # (NEW) 仓储描述
+└── controller/
+    └── ExistingController.java # (MODIFIED) 变更内容
+```
 
 ## 3. 数据模型/类图/API设计
+
+（可选。如果特性不涉及新的数据结构或 API 变更，可省略本节。）
 
 ### 3.1 数据结构
 
@@ -80,73 +96,129 @@ public interface FeatureAPI {
 
 ## 4. 详细设计
 
-（详细描述每个模块或流程的具体实现细节。）
+（详细描述每个模块或流程的具体实现细节。对每个流程或模块，必须：
+1. 先展示带编号步骤的 Mermaid 图（如 "1. 步骤名", "2. 步骤名"）
+2. 然后在图下方提供对应编号的说明列表
+3. 列表编号必须与图中步骤编号对应）
 
 ### 4.1 流程/模块一：[名称]
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant Client
     participant Server
-    Client->>Server: 请求
-    Server-->>Client: 响应
+    participant Database
+    Client->>Server: 1. 发送请求
+    Server->>Server: 2. 校验请求
+    Server->>Database: 3. 查询数据
+    Database-->>Server: 4. 返回数据
+    Server-->>Client: 5. 发送响应
 ```
 
 **流程说明：**
 
-1. ...（第一步的具体操作）
-2. ...（第二步的具体操作）
-3. ...（第三步的具体操作）
-
-#### 4.1.1 步骤一
-
-...
-
-#### 4.1.2 步骤二
-
-...
+1. **发送请求**：客户端发起请求，携带必要参数。
+2. **校验请求**：服务端校验请求参数和认证信息。
+3. **查询数据**：服务端向数据库查询所需信息。
+4. **返回数据**：数据库返回查询结果。
+5. **发送响应**：服务端处理数据后返回给客户端。
 
 ### 4.2 流程/模块二：[名称]
 
-...
+```mermaid
+flowchart TD
+    A["1. 开始处理"] --> B["2. 初始化"]
+    B --> C{"3. 检查条件"}
+    C -->|是| D["4. 分支A处理"]
+    C -->|否| E["5. 分支B处理"]
+    D --> F["6. 完成"]
+    E --> F
+```
+
+**流程说明：**
+
+1. **开始处理**：流程入口。
+2. **初始化**：设置必要的变量和配置。
+3. **检查条件**：评估业务逻辑条件。
+4. **分支A处理**：条件为真时执行。
+5. **分支B处理**：条件为假时执行。
+6. **完成**：完成处理并清理资源。
 
 ## 5. 实现变更
 
-(用代码框架标明修改位置，用自然语言描述具体变更。聚焦于"改什么"，保持简洁高密度。)
+(用代码框架标明修改位置，用自然语言描述具体变更。按流程/模块组织，每个文件独立代码块。聚焦于"改什么"，保持简洁高密度。)
 
 **标记约定：**
 - `// NEW: <文件路径>` - 新增文件或类
 - `// MODIFIED: <文件路径>` - 修改现有文件
 - `// ...existing...` - 省略未改动部分
-- `[改]` - 修改现有逻辑
-- `[增]` - 新增逻辑
-- `[删]` - 删除逻辑
+- `// @before: <代码>` / `// @after: <代码>` - 标明方法内的位置
+- `// + <描述>` - 新增逻辑
+- `// ~ <描述>` - 修改现有逻辑（可用 `旧 → 新` 格式）
+- `// - <描述>` - 删除逻辑
 
-### 5.1 关键变更
+### 5.1 [流程/模块名称]
+> 本部分变更的简要概述。
 
 ```
 // NEW: src/services/UserService.ts
 class UserService {
     validateQuota(userId) {
-        // 查询用户配额，超限则抛出 QuotaError
+        // 从 quotaStore 查询用户配额
+        // 与限额比较，超限则抛出 QuotaExceededError
+        // 返回剩余配额供客户端展示
     }
 }
+```
 
+```
 // MODIFIED: src/processors/OrderProcessor.ts
 class OrderProcessor {
     submit(order) {
         // ...existing validation...
-        // [改] 队列推送: 同步 → 异步
-        // [改] 返回值: 最终结果 → pending 状态 + 任务ID
+        // @after: validation
+        // ~ queue.push(order) → queue.pushAsync(order)
+        // + order.status = PENDING
+        // + emit('order:submitted', order)
     }
-}
 
-// MODIFIED: src/handlers/PaymentHandler.ts
-PaymentHandler.process(payment) {
-    // [增] 成功后: 通知用户 + 更新缓存
-    // [增] 失败处理: 重试3次 → 降级至人工审核
+    // - processSync(order) - 整个方法移除，替换为异步流程
 }
 ```
+
+## 6. 实施计划
+
+（将设计拆分为可执行的步骤/阶段。考虑：
+- 简单特性：直接列出任务，不分阶段
+- 大型特性：分阶段，Phase 1 为基础/前置条件
+- 仅在存在依赖时标注依赖关系
+- 按重要性标注优先级：P0=必须有, P1=应该有, P2=锦上添花）
+
+<!-- 以下两个示例仅供选择格式参考。实际文档中不要输出 "简单特性格式" / "大型特性格式" 这样的标题。根据特性复杂度选择合适的格式。 -->
+
+### 简单特性格式：
+| 任务 | 优先级 | 描述 |
+|------|--------|------|
+| 1. [任务名] | P0 | [简要描述] |
+| 2. [任务名] | P0 | [简要描述] |
+| 3. [任务名] | P1 | [简要描述] |
+
+### 大型特性格式：
+
+#### 阶段一：基础
+> 目标：[阶段目标]
+
+| 任务 | 优先级 | 描述 |
+|------|--------|------|
+| 1.1 [任务名] | P0 | [简要描述] |
+
+#### 阶段二：核心功能
+> 依赖：阶段一
+
+| 任务 | 优先级 | 描述 |
+|------|--------|------|
+| 2.1 [任务名] | P0 | [简要描述] |
     ]]>
   </design_template>
 
@@ -179,11 +251,11 @@ PaymentHandler.process(payment) {
         </step>
         <step>
           <title>2. 概要设计 (High-Level Design)</title>
-          <content>Describe the overall implementation idea. Create a Mermaid flowchart for '模块划分' and outline the '核心流程'.</content>
+          <content>Describe the overall approach. Create a Mermaid diagram showing module call relationships and data flow. Use a separate Mermaid diagram in '核心流程' to show the runtime execution path.</content>
         </step>
         <step>
           <title>3. 数据模型/API设计 (Data Model/API Design)</title>
-          <content>Define the core data structures using a Mermaid class diagram. List the new public APIs or core internal methods.</content>
+          <content>Optional. Define the core data structures using a Mermaid class diagram. List the new public APIs or core internal methods. Omit if not applicable.</content>
         </step>
         <step>
           <title>4. 详细设计 (Detailed Design)</title>
@@ -191,7 +263,11 @@ PaymentHandler.process(payment) {
         </step>
         <step>
           <title>5. 实现变更 (Implementation Changes)</title>
-          <content>Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Keep it concise and high-density.</content>
+          <content>Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Organize by process/module. Keep it concise and high-density.</content>
+        </step>
+        <step>
+          <title>6. 实施计划 (Implementation Plan)</title>
+          <content>Break down into actionable steps with priorities. Choose flat list or phased format based on complexity.</content>
         </step>
       </steps>
     </phase>
@@ -200,7 +276,7 @@ PaymentHandler.process(payment) {
       <description>Generate the final design document.</description>
       <steps>
         <step>Combine all the drafted sections into a single markdown file.</step>
-        <step>Use `write_to_file` to save the complete design document.</step>
+        <step>Use `write_to_file` to save the complete design document to the project's existing `docs/` or `doc/` directory. If neither exists, default to `docs/`.</step>
       </steps>
     </phase>
   </main_workflow>
