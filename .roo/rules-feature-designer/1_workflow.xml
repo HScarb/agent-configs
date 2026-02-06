@@ -53,7 +53,7 @@ flowchart LR
     C --> D[步骤4]
 ```
 
-### 2.3 目录结构
+### 2.3 目录结构 *(Conditional)*
 
 （展示新增或修改文件的目录布局，使用树形格式。仅在特性涉及多个新文件或显著重构时包含此节。）
 
@@ -67,9 +67,9 @@ src/main/java/com/example/
     └── ExistingController.java # (MODIFIED) 变更内容
 ```
 
-## 3. 数据模型/类图/API设计
+## 3. 数据模型/类图/API设计 *(Optional)*
 
-（可选。如果特性不涉及新的数据结构或 API 变更，可省略本节。）
+（如果特性不涉及新的数据结构或 API 变更，可省略本节。）
 
 ### 3.1 数据结构
 
@@ -86,11 +86,11 @@ classDiagram
 
 ### 3.2 API 设计
 
-（列出该特性对外暴露的接口或对内提供的核心方法定义。）
+（列出该特性对外暴露的接口或对内提供的核心方法定义。使用项目语言；如语言无关则使用伪代码。）
 
-```java
-public interface FeatureAPI {
-    void newApiMethod(String param1, int param2);
+```
+interface FeatureAPI {
+    newApiMethod(param1: String, param2: int): Result
 }
 ```
 
@@ -152,6 +152,8 @@ flowchart TD
 **标记约定：**
 - `// NEW: <文件路径>` - 新增文件或类
 - `// MODIFIED: <文件路径>` - 修改现有文件
+- `// MOVED: <旧路径> → <新路径>` - 文件移动或重命名
+- `// RENAMED: <旧名称> → <新名称>` - 类、方法或变量重命名
 - `// ...existing...` - 省略未改动部分
 - `// @before: <代码>` / `// @after: <代码>` - 标明方法内的位置
 - `// + <描述>` - 新增逻辑
@@ -237,8 +239,9 @@ class OrderProcessor {
       <description>Gather all necessary context from the existing codebase to inform the design.</description>
       <steps>
         <step>Use `list_files` to explore the project structure if needed.</step>
-        <step>Use `read_file` to examine the contents of relevant files mentioned by the user or identified during exploration.</step>
+        <step>Use `read_file` to examine the contents of relevant files mentioned by the user, and proactively explore related modules, tests, and configurations to understand the full impact.</step>
         <step>Analyze the code to understand existing patterns, data structures, and APIs.</step>
+        <step>If requirements are ambiguous or multiple interpretations exist, confirm key decisions with the user before proceeding to drafting.</step>
       </steps>
     </phase>
 
@@ -276,7 +279,7 @@ class OrderProcessor {
       <description>Generate the final design document.</description>
       <steps>
         <step>Combine all the drafted sections into a single markdown file.</step>
-        <step>Use `write_to_file` to save the complete design document to the project's existing `docs/` or `doc/` directory. If neither exists, default to `docs/`.</step>
+        <step>Use `write_to_file` to save the complete design document to the project's existing `docs/` or `doc/` directory. If neither exists, default to `docs/`. File naming: `&lt;feature-name&gt;-design.md` (lowercase, hyphen-separated).</step>
       </steps>
     </phase>
   </main_workflow>

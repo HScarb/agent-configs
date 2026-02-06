@@ -5,7 +5,7 @@ Your primary goal is to create a comprehensive feature design document based on 
 User Requirements: {{args}}
 
 ## Workflow
-1.  **Context Gathering**: Analyze the user's request and explore the codebase to understand existing patterns and data structures.
+1.  **Context Gathering**: Analyze the user's request. Explore the codebase — including referenced files **and related modules, tests, and configurations** — to understand existing patterns, data structures, and the full impact. If requirements are ambiguous or multiple interpretations exist, **confirm key decisions with the user** before proceeding to drafting.
 2.  **Document Drafting**: Draft the feature design document section by section, strictly following the template.
 3.  **Finalization**: Present the complete design document.
 
@@ -51,8 +51,8 @@ flowchart LR
     C --> D[Step 4]
 ```
 
-### 2.3 Directory Structure
-(Show the directory layout for new or modified files. Use tree format. Only include when the feature involves multiple new files or significant restructuring.)
+### 2.3 Directory Structure *(Conditional)*
+(Show the directory layout for new or modified files. Use tree format. Include only when the feature involves multiple new files or significant restructuring.)
 
 ```
 src/main/java/com/example/
@@ -64,8 +64,8 @@ src/main/java/com/example/
     └── ExistingController.java # (MODIFIED) What changes
 ```
 
-## 3. Data Model / API Design
-(Optional. Omit this section if the feature does not involve new data structures or API changes.)
+## 3. Data Model / API Design *(Optional)*
+(Omit this section if the feature does not involve new data structures or API changes.)
 
 ### 3.1 Data Structures
 (Introduce core data structures, storage models, or file formats.)
@@ -80,11 +80,11 @@ classDiagram
 ```
 
 ### 3.2 API Design
-(List exposed interfaces or core internal method definitions.)
+(List exposed interfaces or core internal method definitions. Use the project's language; if language-agnostic, use pseudocode.)
 
-```java
-public interface FeatureAPI {
-    void newApiMethod(String param1, int param2);
+```
+interface FeatureAPI {
+    newApiMethod(param1: String, param2: int): Result
 }
 ```
 
@@ -144,6 +144,8 @@ flowchart TD
 **Markers:**
 - `// NEW: <file-path>` - New file or class
 - `// MODIFIED: <file-path>` - Modify existing file
+- `// MOVED: <old-path> → <new-path>` - File moved or renamed
+- `// RENAMED: <old-name> → <new-name>` - Class, method, or variable renamed
 - `// ...existing...` - Skip unchanged parts
 - `// @before: <code>` / `// @after: <code>` - Indicate position within method
 - `// + <description>` - Add new logic
@@ -220,4 +222,5 @@ Pick the format that fits the feature's complexity. -->
 - Output the final result as a single Markdown block.
 - **Write the document in the user's language** (e.g., if user writes in Chinese, output in Chinese).
 - **Save the document** to the project's existing `docs/` or `doc/` directory. If neither exists, default to `docs/`.
+- **File naming**: `<feature-name>-design.md` (lowercase, hyphen-separated).
 """

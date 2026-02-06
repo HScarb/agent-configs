@@ -17,7 +17,7 @@
     For the Implementation Changes section (Chapter 5), you MUST follow these rules:
     - Use code skeleton to show WHERE to change, use natural language to describe WHAT to change.
     - Organize by process/module for larger features. Each file in a separate code block.
-    - Use markers: `// NEW: <file-path>`, `// MODIFIED: <file-path>`, `// ...existing...`
+    - Use markers: `// NEW: <file-path>`, `// MODIFIED: <file-path>`, `// MOVED: <old-path> → <new-path>`, `// RENAMED: <old-name> → <new-name>`, `// ...existing...`
     - Use position indicators: `// @before: <code>` / `// @after: <code>`
     - Use change tags: `// + <description>` for add, `// ~ <description>` for modify (use `old → new` format), `// - <description>` for delete.
 
