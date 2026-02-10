@@ -92,7 +92,8 @@ interface FeatureAPI {
 (Describe implementation details for each module or flow. For each flow or module, you MUST:
 1. First present a Mermaid diagram with numbered steps (e.g., "1. Step Name", "2. Step Name")
 2. Then provide a numbered list explanation below the diagram
-3. The list numbers MUST correspond to the step numbers in the diagram)
+3. The list numbers MUST correspond to the step numbers in the diagram
+4. **Chapter 4 and Chapter 5 subsections MUST have one-to-one correspondence**: 4.1 maps to 5.1, 4.2 maps to 5.2, and so on. Use the same Flow/Module name in both chapters — Chapter 4 uses diagrams to describe "how it runs", Chapter 5 uses code skeletons to describe "how to change the code".)
 
 ### 4.1 Flow/Module 1: [Name]
 
@@ -139,7 +140,8 @@ flowchart TD
 6.  **Finalize**: Complete the process and clean up resources.
 
 ## 5. Implementation Changes
-(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Organize by process/module for larger features. Each file in a separate code block. Keep it concise and high-density.)
+(Use code skeleton to show WHERE to change, use natural language to describe WHAT to change. Organize by process/module for larger features. Each file in a separate code block. Keep it concise and high-density.
+**Subsection numbering and names MUST correspond one-to-one with Chapter 4** (5.1 maps to 4.1, 5.2 maps to 4.2). Each subsection contains all file changes involved in that Flow/Module.)
 
 **Markers:**
 - `// NEW: <file-path>` - New file or class
@@ -152,32 +154,76 @@ flowchart TD
 - `// ~ <description>` - Modify existing logic (use `old → new` format when helpful)
 - `// - <description>` - Delete logic
 
-### 5.1 [Process/Module Name]
+### 5.1 Flow/Module 1: [Name]
 > Brief summary of changes in this part.
 
 ```
-// NEW: src/services/UserService.ts
-class UserService {
-    validateQuota(userId) {
-        // Query user quota from quotaStore
-        // Compare usage against limit, throw QuotaExceededError if exceeded
-        // Return remaining quota for client display
+// MODIFIED: src/controllers/RequestController.ts
+class RequestController {
+    handleRequest(req) {
+        // ...existing...
+        // + Call RequestValidator.validate(req)
+        // + Call DataRepository.query(req.params)
+        // + Return formatted response to client
     }
 }
 ```
 
 ```
+// NEW: src/services/RequestValidator.ts
+class RequestValidator {
+    validate(req) {
+        // Check required fields, throw ValidationError if missing
+        // Verify authentication token
+        // Return validated request data
+    }
+}
+```
+
+```
+// MODIFIED: src/repositories/DataRepository.ts
+class DataRepository {
+    // ...existing...
+
+    query(params) {
+        // + Build query from validated params
+        // + Execute database query and return results
+    }
+}
+```
+
+### 5.2 Flow/Module 2: [Name]
+> Brief summary of changes in this part.
+
+```
 // MODIFIED: src/processors/OrderProcessor.ts
 class OrderProcessor {
-    submit(order) {
-        // ...existing validation...
-        // @after: validation
-        // ~ queue.push(order) → queue.pushAsync(order)
-        // + order.status = PENDING
-        // + emit('order:submitted', order)
+    process(order) {
+        // + Initialize order context and load configuration
+        // + Evaluate business logic condition
+        // + If condition is true → execute processBranchA(order)
+        // + If condition is false → execute processBranchB(order)
+        // + Finalize: clean up resources and emit completion event
     }
 
     // - processSync(order) - entire method removed, replaced by async flow
+}
+```
+
+```
+// MODIFIED: src/handlers/PaymentHandler.ts
+class PaymentHandler {
+    processBranchA(order) {
+        // + Handle the "condition met" branch
+        // ~ gateway.charge(payment) → wrap with retry(3x, exponentialBackoff)
+        // + On completion: call finalize(order)
+    }
+
+    processBranchB(order) {
+        // + Handle the "condition not met" branch
+        // + Route to alternative processing pipeline
+        // + On completion: call finalize(order)
+    }
 }
 ```
 

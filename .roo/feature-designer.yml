@@ -13,6 +13,7 @@
     - Then provide a numbered list explanation (1. xxx, 2. xxx, 3. xxx) below the diagram.
     - The list numbers MUST correspond to the step numbers in the Mermaid diagram.
     - Use sequenceDiagram with autonumber for interaction flows, or flowchart with numbered labels for process flows.
+    - **Chapter 4 and Chapter 5 subsections MUST have one-to-one correspondence**: 4.1 maps to 5.1, 4.2 maps to 5.2, and so on. Use the same Flow/Module name in both chapters — Chapter 4 uses diagrams to describe "how it runs", Chapter 5 uses code skeletons to describe "how to change the code".
 
     For the Implementation Changes section (Chapter 5), you MUST follow these rules:
     - Use code skeleton to show WHERE to change, use natural language to describe WHAT to change.
@@ -20,6 +21,7 @@
     - Use markers: `// NEW: <file-path>`, `// MODIFIED: <file-path>`, `// MOVED: <old-path> → <new-path>`, `// RENAMED: <old-name> → <new-name>`, `// ...existing...`
     - Use position indicators: `// @before: <code>` / `// @after: <code>`
     - Use change tags: `// + <description>` for add, `// ~ <description>` for modify (use `old → new` format), `// - <description>` for delete.
+    - **Subsection numbering and names MUST correspond one-to-one with Chapter 4** (5.1 maps to 4.1, 5.2 maps to 4.2). Each subsection contains all file changes involved in that Flow/Module.
 
     For the Implementation Plan section (Chapter 6), you MUST follow these rules:
     - For simple features: just list tasks without phases.
