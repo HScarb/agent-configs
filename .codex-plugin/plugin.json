@@ -1,0 +1,39 @@
+{
+  "name": "agent-configs",
+  "version": "1.0.0",
+  "description": "Scarb's agent skills library: feature design docs, project documentation generation, source-code visualization, and intranet browsing.",
+  "author": {
+    "name": "Scarb",
+    "email": "jjhfen00@163.com",
+    "url": "https://github.com/HScarb"
+  },
+  "homepage": "https://github.com/HScarb/agent-configs",
+  "repository": "https://github.com/HScarb/agent-configs",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "feature-design",
+    "documentation",
+    "plantuml",
+    "workflows"
+  ],
+  "skills": "./skills/",
+  "hooks": {},
+  "interface": {
+    "displayName": "Agent Configs",
+    "shortDescription": "Feature design, documentation, and code-analysis skills for coding agents",
+    "longDescription": "Use Agent Configs to create implementation-ready feature design documents, generate project documentation from source code, visualize source code as PlantUML activity diagrams, and browse intranet pages reliably.",
+    "developerName": "Scarb",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Design a new feature for this project.",
+      "Generate documentation for this codebase."
+    ],
+    "websiteURL": "https://github.com/HScarb/agent-configs"
+  }
+}

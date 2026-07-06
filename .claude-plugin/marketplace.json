@@ -1,0 +1,20 @@
+{
+  "name": "agent-configs",
+  "description": "Marketplace for Scarb's agent skills library",
+  "owner": {
+    "name": "Scarb",
+    "email": "jjhfen00@163.com"
+  },
+  "plugins": [
+    {
+      "name": "agent-configs",
+      "description": "Scarb's agent skills library: feature design docs, project documentation generation, source-code visualization, and intranet browsing.",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "Scarb",
+        "email": "jjhfen00@163.com"
+      }
+    }
+  ]
+}

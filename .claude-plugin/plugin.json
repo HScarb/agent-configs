@@ -1,0 +1,19 @@
+{
+  "name": "agent-configs",
+  "description": "Scarb's agent skills library: feature design docs, project documentation generation, source-code visualization, and intranet browsing.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Scarb",
+    "email": "jjhfen00@163.com"
+  },
+  "homepage": "https://github.com/HScarb/agent-configs",
+  "repository": "https://github.com/HScarb/agent-configs",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "feature-design",
+    "documentation",
+    "plantuml",
+    "workflows"
+  ]
+}

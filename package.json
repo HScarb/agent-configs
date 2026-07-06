@@ -1,0 +1,35 @@
+{
+  "name": "@hscarb/agent-configs",
+  "version": "1.0.0",
+  "description": "Scarb's agent skills library: feature design docs, project documentation generation, source-code visualization, and intranet browsing.",
+  "type": "module",
+  "bin": {
+    "agent-configs": "bin/install.js"
+  },
+  "files": [
+    "bin",
+    "skills",
+    ".claude-plugin",
+    ".codex-plugin",
+    ".cursor-plugin"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Scarb <jjhfen00@163.com>",
+  "homepage": "https://github.com/HScarb/agent-configs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HScarb/agent-configs.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "cursor",
+    "feature-design",
+    "documentation"
+  ]
+}
