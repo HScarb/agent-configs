@@ -33,5 +33,6 @@ To verify the whole package: run the install in a temp dir containing an empty `
 
 - Adding a skill: create `skills/<name>/SKILL.md` only — the installer and all three plugin manifests pick it up automatically; no manifest edit needed. Update the skill table in `README.md`.
 - Skill bodies may be in Chinese (e.g. `source-analyst`) but keep the frontmatter `description` in English (with Chinese trigger phrases appended if useful) for reliable triggering.
+- Manual-only skills (never auto-triggered, e.g. `feature-designer`): set `disable-model-invocation: true` in the SKILL.md frontmatter (Claude Code, Cursor) and add `skills/<name>/agents/openai.yaml` containing `policy: { allow_implicit_invocation: false }` (Codex).
 - Commit messages follow conventional commits: `<type>: <description>` (feat, fix, refactor, docs, chore).
 - Do not reintroduce per-agent config directories (`.claude/`, `.gemini/`, `.roo/`) — they were deliberately removed in favor of the unified `skills/` + plugin-manifest layout.

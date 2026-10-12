@@ -1,3 +1,9 @@
+<!--
+Suggested structure, not a contract. Drop sections marked optional or conditional,
+merge or reorder the rest to fit the feature. Write for a junior developer new to
+the project: plain words, high information density. Do not copy this comment.
+-->
+
 # [Feature Name] Design Document
 
 ## 1. Background
@@ -21,6 +27,13 @@
 | Actor | Trigger | Expected Result |
 |------|---------|-----------------|
 | [User/System] | [When this happens] | [What should happen] |
+
+### 1.4 Key Concepts *(Optional)*
+Include when the doc relies on project-specific terms a newcomer may not know.
+
+| Term | Meaning in this project |
+|------|-------------------------|
+| [Term] | [Plain-language definition, with a pointer to code if useful] |
 
 ## 2. High-Level Design
 
@@ -81,7 +94,7 @@ flowchart TD
 
 After the Mermaid diagram, add a brief explanation of **this exact flow** (before Chapter 4 details):
 
-- Use **2-5 bullets**, one sentence each, high information density.
+- Use **2-5 bullets**, 1-2 sentences each, high information density, plain words: a newcomer should follow each step without prior context.
 - Explain the diagram step-by-step (or merged adjacent steps), not a separate abstract summary.
 - Each bullet should include concrete component/action/data-state change and key constraints when relevant.
 
@@ -117,7 +130,7 @@ classDiagram
 
 After the Mermaid diagram, add a brief explanation of **this exact mechanism**:
 
-- Use **2-5 bullets**, one sentence each, high information density.
+- Use **2-5 bullets**, 1-2 sentences each, high information density, plain words: a newcomer should follow each step without prior context.
 - Explain role relations and runtime collaboration from the diagram, not generic pattern theory.
 - Each bullet should include concrete component/responsibility/selection rule/state effect/extension constraint.
 
@@ -177,7 +190,7 @@ For each flow/module subsection:
 2. Provide numbered explanation matching diagram numbers.
 3. Include happy path and key failure paths.
 
-**Rule**: Chapter 4 and Chapter 5 subsections MUST map one-to-one by number and name.
+**Alignment (strong default)**: when Chapter 5 exists, keep its subsections aligned with Chapter 4 by number and name, or merge design and code changes per subsection.
 
 ### 4.1 Flow/Module 1: [Name]
 
@@ -242,20 +255,9 @@ flowchart TD
 
 ## 5. Implementation Changes
 
-Show **where** to change with skeletons and describe **what** to change concisely in user's natual language.
+Show **where** to change with skeletons and describe **what** to change concisely in the user's natural language. Use the code skeleton markers listed in SKILL.md.
 
-**Subsection numbers and names MUST match Chapter 4 exactly.**
-
-**Markers:**
-- `// NEW: <file-path>`
-- `// MODIFIED: <file-path>`
-- `// MOVED: <old-path> -> <new-path>`
-- `// RENAMED: <old-name> -> <new-name>`
-- `// ...existing...`
-- `// @before: <code>` / `// @after: <code>`
-- `// + <description>`
-- `// ~ <old> -> <new>`
-- `// - <description>`
+Keep subsections aligned with Chapter 4 (same numbers and names) so readers can cross-reference.
 
 ### 5.1 Flow/Module 1: [Name]
 
