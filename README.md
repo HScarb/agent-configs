@@ -6,7 +6,7 @@ Scarb 的 agent skills 库。所有能力统一以 [Agent Skills](https://agents
 
 | Skill | 用途 |
 |-------|------|
-| [feature-designer](skills/feature-designer/SKILL.md) | 生成高信息密度、可直接实施的特性设计文档 |
+| [feature-designer](skills/feature-designer/SKILL.md) | （需手动调用）生成高信息密度、通俗易懂、可直接实施的特性设计文档，保存到 `docs/plan/` |
 | [project-blueprint](skills/project-blueprint/SKILL.md) | 分析源码生成项目关键文档（概览/架构/技术栈/API/部署） |
 | [source-analyst](skills/source-analyst/SKILL.md) | 将函数业务逻辑转换为 PlantUML 活动图，辅助源码理解 |
 | [intranet-browser](skills/intranet-browser/SKILL.md) | 在公司内网 Windows 机器上用 agent-browser 可靠访问内网页面 |
